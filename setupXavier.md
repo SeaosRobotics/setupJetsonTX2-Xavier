@@ -1,7 +1,24 @@
 # Setup for Jetson AGX Xavier
 
 ## Flush Jetpack to Xavier with SDK Manager
-- Get SDK Manager from [here](https://developer.nvidia.com/embedded/downloads).
+- Get SDK Manager on your host PC from [here](https://developer.nvidia.com/embedded/downloads).
+- Flush Jetpack to Xavier. Refer to [here](https://docs.nvidia.com/sdk-manager/install-with-sdkm-jetson/index.html).
+
+## Change nvpmodel to max mode
+```bash
+sudo nvpmodel -m 0
+sudo jetson_clocks
+```
+
+## Installation SSD
+- Follow [this instruction](https://medium.com/@ramin.nabati/installing-an-nvme-ssd-drive-on-nvidia-jetson-xavier-37183c948978).
+- Change home directory path under ssd.
+```bash
+cd /home
+sudo cp -r nvidia/ nvidia_bkup/
+sudo cp -r nvidia/ /xavier_ssd/
+sudo ln -s /xavier_ssd/nvidia nvidia
+```
 
 # compile and install Rtabmap / rtabmap_ros  
 
