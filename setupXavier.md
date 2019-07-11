@@ -1,3 +1,8 @@
+# Setup for Jetson AGX Xavier
+
+## Flush Jetpack to Xavier with SDK Manager
+- Get SDK Manager from link : [https://developer.nvidia.com/embedded/downloads]
+
 # compile and install Rtabmap / rtabmap_ros  
 
 ```bash
