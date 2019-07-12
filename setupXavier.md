@@ -30,6 +30,10 @@ git clone https://github.com/yuusuke0126-seaos/buildOpenCVXavier.git
 cd buildOpenCVXavier/
 git checkout 3.4.6
 ./buildOpenCV.sh
+
+# After installing...
+cd ~
+sed -i -e "s/LD_LIBRARY_PATH=/LD_LIBRARY_PATH=/usr/local/lib:/g" .bashrc
 ```
 
 
