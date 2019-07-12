@@ -15,10 +15,25 @@ sudo jetson_clocks
 - Change home directory path under ssd.
 ```bash
 cd /home
-sudo cp -r nvidia/ nvidia_bkup/
-sudo cp -r nvidia/ /xavier_ssd/
-sudo ln -s /xavier_ssd/nvidia nvidia
+cp -r nvidia/ /xavier_ssd/
+sudo mv nvidia/ nvidia_bkup/
+sudo ln -s /xavier_ssd/nvidia
 ```
+
+## Installatoin Wifi card
+
+## Compile and install OpenCV 3.4.6
+```
+mkdir ~/src
+cd ~/src
+git clone https://github.com/yuusuke0126-seaos/buildOpenCVXavier.git
+cd buildOpenCVXavier/
+git checkout 3.4.6
+./buildOpenCV.sh
+```
+
+
+
 
 # compile and install Rtabmap / rtabmap_ros  
 
@@ -195,4 +210,4 @@ cd ..
 ### cd ..
 ### 
 catkin_make   # Xavier no need to -j1
-```
+``
