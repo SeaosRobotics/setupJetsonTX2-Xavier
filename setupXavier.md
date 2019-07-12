@@ -34,40 +34,29 @@ git checkout 3.4.6
 # After installing...
 cd ~
 sed -i -e "s/LD_LIBRARY_PATH=/LD_LIBRARY_PATH=/usr/local/lib:/g" .bashrc
+sudo apt install libboost-all-dev libpcl-dev
 ```
 
+## Installation ZED SDK
+```
+cd ~/src
+mkdir ZED_SDK
+cd ZED_SDK
+wget https://www.stereolabs.com/developers/downloads/ZED_SDK_JP4.2_v2.8.1.run
+chmod +x ZED_SDK_JP4.2_v2.8.1.run
+./ZED_SDK_JP4.2_v2.8.1.run
+```
 
-
-
-# compile and install Rtabmap / rtabmap_ros  
-
-```bash
-echo 'install dependencies'
-
-sudo apt-get install ros-melodic-rtabmap ros-melodic-rtabmap-ros
-sudo apt-get remove  ros-melodic-rtabmap ros-melodic-rtabmap-ros
-
-#install OpenCV 3.4.2 version..
-cd ~
-#get opencv source code
-git clone https://github.com/opencv/opencv.git
-cd opencv
-git checkout 3.4.2 #for enable markdetection.
-mkdir build
-cd ..
-cd ~
-git clone https://github.com/opencv/opencv_contrib.git
-cd opencv_contrib
-git checkout 3.4.2 #for enable markdetection.
-cd ..
-
+## Compile and install gtsam, g2o, and rtabmap
+```
+# TODO: Confirm current x3 remote URL and branch
 cd ~
 git clone https://bitbucket.org/gtborg/gtsam.git
 cd gtsam/
 git checkout 4.0.0-alpha2
 mkdir build
 cd build
-cmake GTSAM_USE_SYSTEM_EIGEN=ON ..
+cmake -DGTSAM_USE_SYSTEM_EIGEN=ON ..
 make
 sudo make install
 
