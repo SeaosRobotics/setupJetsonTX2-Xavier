@@ -82,75 +82,20 @@ sudo make install
 ## ROS installation
 - Follow [this instruction](http://wiki.ros.org/melodic/Installation/Ubuntu).
 ```
-cd ~
-wget 
+cd ~/src
+git clone https://github.com/yuusuke0126-seaos/setupJetsonTX2-Xavier.git
+cd setupJetsonTX2-Xavier
+git checkout develop
+cp .bash_ros ~/
+echo "source ~/.bash_ros" >> ~/.bashrc
+```
+```
+mkdir -p ~/ros/catkin_ws/src
+cd ~/ros/catkin_ws/
+catkin_make
+bash
+sudo apt install ros-melodic-rosserial-python
 ```
 
+## Logiler pkgs installation
 
-### about ROS `catkin_make`  
-
-when I tried to `catkin_make`  
-it saids   
-
-```bash
-CMake Error at /opt/ros/melodic/share/cv_bridge/cmake/cv_bridgeConfig.cmake:113 (message):
-  Project 'cv_bridge' specifies '/usr/include/opencv' as an include dir,
-  which is not found.
-
-.... ....
-
-and
-
-.... ....
-
-*** No rule to make target '/usr/lib/aarch64-linux-gnu/libopencv_core.so.3.2.0', needed by '/home/nvidia/catkin_ws/devel/lib/rtabmap_ros/rtabmap'.  Stop.
- 
-```
-
-run  
-
-```bash
-sudo ln -s /usr/local/include/opencv /usr/include/opencv
-sudo ln -s /usr/local/lib/libopencv_core.so.3.4.1 /usr/lib/aarch64-linux-gnu/libopencv_core.so.3.2.0
-```
-
-then `catkin_make` again it goes fine.  
-
-### about logiler packages:  
-
-first run:  
-
-```
-roscd
-cd ..
-rosdep install -r -y --from-paths src --ignore-src
-```
-
-Then do `catkin_make` you will find _not found_ packages. we have to find them mainly from github.  
-
-
-```bash
-roscd
-cd ../src
-git clone https://github.com/yujinrobot/yujin_ocs.git
-cd yujin_ocs
-git checkout release/0.8-melodic
-roscd
-rosdep install -r -y --from-paths src --ignore-src
-sudo apt install ros-melodic-kobuki-*
-
-sudo apt install ros-melodic-yujin-ocs
-sudo apt install ros-melodic-tf*
-git clone https://github.com/ros-planning/navigation.git
-cd navigation
-git reset --hard 8665d81a20a1ecd45811ac6195a9c0d1a472080b    #<--according to https://github.com/paulbovbel/frontier_exploration/issues/38-->
-cd ..
-
-### teb_local_planner I installed from `sudo apt install ros-melodic-teb-local-planner` 
-### git clone https://github.com/rst-tu-dortmund/teb_local_planner.git
-### cd teb_local_planner
-### git checkout melodic-devel
-### cd ..
-### 
-catkin_make   # Xavier no need to -j1
-``
