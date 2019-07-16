@@ -3,6 +3,7 @@
 ## Flush Jetpack to Xavier with SDK Manager
 - Get SDK Manager on your host PC from [here](https://developer.nvidia.com/embedded/downloads).
 - Flush Jetpack to Xavier. Refer to [here](https://docs.nvidia.com/sdk-manager/install-with-sdkm-jetson/index.html).
+- user name should be "nvidia", hostname should be "x(number)".
 
 ## Change nvpmodel to max mode
 ```bash
@@ -10,7 +11,7 @@ sudo nvpmodel -m 0
 sudo jetson_clocks
 ```
 
-## Installation SSD
+## Installation SSD and Wifi card
 - Follow [this instruction](https://medium.com/@ramin.nabati/installing-an-nvme-ssd-drive-on-nvidia-jetson-xavier-37183c948978).
 - Change home directory path under ssd.
 ```bash
@@ -19,8 +20,6 @@ cp -r nvidia/ /xavier_ssd/
 sudo mv nvidia/ nvidia_bkup/
 sudo ln -s /xavier_ssd/nvidia
 ```
-
-## Installatoin Wifi card
 
 ## Compile and install OpenCV 3.4.6
 ```
@@ -80,6 +79,14 @@ cmake ..
 make
 sudo make install
 ```
+## ROS installation
+- Follow [this instruction](http://wiki.ros.org/melodic/Installation/Ubuntu).
+```
+cd ~
+wget 
+```
+
+
 ### about ROS `catkin_make`  
 
 when I tried to `catkin_make`  
