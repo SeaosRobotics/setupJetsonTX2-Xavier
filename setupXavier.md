@@ -146,13 +146,7 @@ catkin_make
 ## udev rules and k2k setting
 - No password setting, make logilerOverrides on /etc/sudoers.d
 ```
-cd /etc/sudoers.d/
-sudo vim logilerOverrides
-```
-
-- Describe sentense below in logilerOverrides
-```
-nvidia ALL=NOPASSWD: ALL
+sudo sh -c "echo nvidia ALL=NOPASSWD: ALL >> /etc/sudoers.d/logilerOverrides"
 ```
 
 - Add dialout for nvidia groups `sudo usermod -aG dialout nvidia`
