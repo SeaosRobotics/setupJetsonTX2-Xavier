@@ -80,16 +80,23 @@ make
 sudo make install
 ```
 ## ROS installation
-- Follow [this instruction](http://wiki.ros.org/melodic/Installation/Ubuntu).
 ```
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+sudo apt update
+sudo apt install ros-melodic-ros-base
+sudo rosdep init
+rosdep update
+source /opt/ros/melodic/setup.bash
+sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
+
 cd ~/src
 git clone https://github.com/yuusuke0126-seaos/setupJetsonTX2-Xavier.git
 cd setupJetsonTX2-Xavier
 git checkout develop
 cp .bash_ros ~/
 echo "source ~/.bash_ros" >> ~/.bashrc
-```
-```
+
 mkdir -p ~/ros/catkin_ws/src
 cd ~/ros/catkin_ws/
 catkin_make
@@ -146,10 +153,9 @@ catkin_make
 ## udev rules and k2k setting
 - No password setting, make logilerOverrides on /etc/sudoers.d
 ```
-sudo sh -c "echo nvidia ALL=NOPASSWD: ALL >> /etc/sudoers.d/logilerOverrides"
+sudo sh -c 'echo "nvidia ALL=NOPASSWD: ALL" >> /etc/sudoers.d/logilerOverrides'
 ```
-
-- Add dialout for nvidia groups `sudo usermod -aG dialout nvidia`
+- Add dialout for nvidia groups, `sudo usermod -aG dialout nvidia`
 - k2k installation
 ```
 cd ~/src
@@ -158,4 +164,20 @@ cd k2k
 git checkout develop
 cd service
 ./install.sh
+```
+
+## rmc and pm2 installation
+```
+cd ~/src
+git clone https://github.com/SeaosRobotics/logiler_utils.git
+cd logiler_utils
+git checkout feature/installer
+cd script/include
+sed -i -e "s/  exit/#  exit/" nodejs.sh
+sed -i -e "s/\$HOME/\/xavier_ssd\/nvidia/" nodejs.sh
+chmod +x nodejs.sh
+./nodejs.sh
+
+cd ~
+sed -i -e "s/\$HOME\/xavier_ssd\/nvidia/" .bashrc # TODO conrifm this script can work or not.
 ```
