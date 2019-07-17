@@ -142,3 +142,26 @@ rosdep install -r --from-paths src --ignore-src # Be careful not to install libo
 sudo apt purge ros-melodic-libg2o
 catkin_make
 ```
+
+## udev rules and k2k setting
+- No password setting, make logilerOverrides on /etc/sudoers.d
+```
+cd /etc/sudoers.d/
+sudo vim logilerOverrides
+```
+
+- Describe sentense below in logilerOverrides
+```
+nvidia ALL=NOPASSWD: ALL
+```
+
+- Add dialout for nvidia groups `sudo usermod -aG dialout nvidia`
+- k2k installation
+```
+cd ~/src
+git clone https://github.com/SeaosRobotics/k2k.git
+cd k2k
+git checkout develop
+cd service
+./install.sh
+```
