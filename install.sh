@@ -14,11 +14,21 @@ sudo jetson_clocks
 
 # Installation SSD and Wifi card
 
-## sudo parted ...
-## sudo parted ...
-## sudo mkft.ext4 ...
+## TODO confirmation test from here (more: how to confirm dev name?)
+sudo parted /dev/nvme0n1 mklabel gpt
+sudo parted /dev/nvme0n1 mkpart xavier_ssd 0% 100%
+sudo mkfs.ext4 /dev/nvme0n1p1
 
-## UUID check and modify /etc/fstab
+uuid=(`sudo blkid /dev/nvme0n1p1  | xargs`)
+uuid="${uuid[2]} /xavier_ssd ext4 defaults 0 2"
+
+sudo mkdir /xavier_ssd
+sudo mount /dev/nvme0n1p1 /xavier_ssd
+sudo chmod 755 /xavier_ssd
+
+sudo cp /etc/fstab /etc/fstab.bkup
+sudo sh -c "echo $uuid >> /etc/fstab"
+## to here
 
 cd /home
 cp -r nvidia/ /xavier_ssd/
@@ -100,6 +110,7 @@ bash
 sudo apt install ros-melodic-rosserial-python
 
 # Logiler pkgs installation
+## TODO git config not to input usrname and pswd for each times
 cd ~/ros/catkin_ws/src
 git clone https://github.com/SeaosRobotics/cast_milestones.git
 git clone https://github.com/rst-tu-dortmund/costmap_converter.git
