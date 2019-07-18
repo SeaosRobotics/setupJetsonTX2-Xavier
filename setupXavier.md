@@ -179,5 +179,5 @@ chmod +x nodejs.sh
 ./nodejs.sh
 
 cd ~
-sed -i -e "s/\$HOME\/xavier_ssd\/nvidia/" .bashrc # TODO conrifm this script can work or not.
+sed -i -e "s/\$HOME/\/xavier_ssd\/nvidia/" .bashrc
 ```
