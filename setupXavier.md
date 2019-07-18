@@ -48,7 +48,6 @@ chmod +x ZED_SDK_JP4.2_v2.8.1.run
 
 ## Compile and install gtsam, g2o, and rtabmap
 ```
-# TODO: Confirm current x3 remote URL and branch
 cd ~/src
 git clone https://bitbucket.org/gtborg/gtsam.git
 cd gtsam/
