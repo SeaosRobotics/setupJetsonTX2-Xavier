@@ -39,6 +39,7 @@ sudo mv nvidia/ nvidia_bkup/
 sudo ln -s /xavier_ssd/nvidia
 
 # Compile and install OpenCV 3.4.6
+sudo apt purge libopencv*
 mkdir ~/src
 cd ~/src
 git clone https://github.com/yuusuke0126-seaos/buildOpenCVXavier.git
