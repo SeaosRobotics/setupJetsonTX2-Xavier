@@ -142,7 +142,7 @@ cd ../roboline; git checkout develop;
 cd ../ros_ultrasonic_msgs; git checkout develop;
 cd ../teb_local_planner; git checkout melodic-devel;
 cd ../vision_opencv; git checkout melodic;
-cd ../zed_ros_wrapper; git checkout develop;
+cd ../zed-ros-wrapper; git checkout develop;
 
 cd ~/ros/catkin_ws
 rosdep install -r --from-paths src --ignore-src # Be careful not to install libopencv*
