@@ -12,20 +12,26 @@
 sudo nvpmodel -m 0
 sudo jetson_clocks
 
+# Prepare the enviroment
+git config --global credential.helper cache
+
 # Installation SSD and Wifi card
 
-## TODO confirmation test from here (more: how to confirm dev name?)
 sudo parted /dev/nvme0n1 mklabel gpt
-# sudo parted /dev/nvme0n1 mkpart xavier_ssd ext4 0% 100%
 sudo parted /dev/nvme0n1 mkpart xavier_ssd 0% 100%
 sudo mkfs.ext4 /dev/nvme0n1p1
 
 uuid=(`sudo blkid /dev/nvme0n1p1  | xargs`)
-uuid="${uuid[2]} /xavier_ssd ext4 defaults 0 2"
+for i in ${uuid[@]}
+do
+    if [[ $i =~ ^UUID=* ]]; then
+        uuid="$i /xavier_ssd ext4 defaults 0 2"
+        break
+    fi
+done
 
 sudo mkdir /xavier_ssd
 sudo mount /dev/nvme0n1p1 /xavier_ssd # <-- At here, /xavier_ssd won't belong to nvidia in above way...
-# sudo chown nvidia:nvidia /xaveir_ssd  # Is is OK...?
 sudo chown nvidia:nvidia /xavier_ssd
 sudo chmod 755 /xavier_ssd
 
