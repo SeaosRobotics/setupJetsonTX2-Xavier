@@ -125,6 +125,7 @@ cd ~/ros/catkin_ws/src
 git clone https://github.com/SeaosRobotics/cast_milestones.git
 git clone https://github.com/rst-tu-dortmund/costmap_converter.git
 git clone https://github.com/ros-perception/depthimage_to_laserscan.git
+git clone https://github.com/ros-perception/image_transport_plugins.git
 git clone https://github.com/SeaosRobotics/key_cart.git
 git clone https://github.com/SeaosRobotics/logiler_bringup.git
 git clone https://github.com/SeaosRobotics/logiler_description.git
@@ -144,6 +145,7 @@ git clone https://github.com/SeaosRobotics/zed-ros-wrapper.git
 
 cd cast_milestones; git checkout feature/service;
 cd ../depthimage_to_laserscan; git checkout melodic-devel;
+cd ../image_transport_plugins; git checkout indigo-devel;
 cd ../key_cart; git checkout develop;
 cd ../logiler_bringup; git checkout release/0.1.0.0;
 cd ../logiler_description; git checkout release/0.1.0.1;
