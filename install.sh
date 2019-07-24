@@ -140,11 +140,11 @@ git checkout develop
 cp .bash_ros ~/
 echo "source ~/.bash_ros" >> ~/.bashrc
 
+sudo apt install ros-melodic-rosserial-python ros-melodic-kobuki-msgs
 mkdir -p ~/ros/catkin_ws/src
 cd ~/ros/catkin_ws/
 catkin_make
 source ~/.bashrc
-sudo apt install ros-melodic-rosserial-python
 
 # Logiler pkgs installation
 ## TODO git config not to input usrname and pswd for each times
