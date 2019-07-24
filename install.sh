@@ -8,6 +8,11 @@
 # "# y-kobayashi@seaos.co.jp     #"
 # "###############################"
 
+echo -e "\e[33m###################################"
+echo -e "\e[33m# Seaos Inc.                      #"
+echo -e "\e[33m# Automatic st-keycart installer. #"
+echo -e "\e[33m###################################"
+
 # Change nvpmodel to max mode
 sudo nvpmodel -m 0
 sudo jetson_clocks
@@ -16,6 +21,10 @@ sudo jetson_clocks
 git config --global credential.helper cache
 
 # Installation SSD and Wifi card
+
+echo -e "\e[33m#####################################"
+echo -e "\e[33m# SSD installation and HOME setting #"
+echo -e "\e[33m#####################################"
 
 sudo parted /dev/nvme0n1 mklabel gpt
 sudo parted /dev/nvme0n1 mkpart xavier_ssd 0% 100%
@@ -45,6 +54,11 @@ sudo mv nvidia/ nvidia_bkup/
 sudo ln -s /xavier_ssd/nvidia
 
 # Compile and install OpenCV 3.4.6
+
+echo -e "\e[33m#####################################"
+echo -e "\e[33m# OpenCV and ZED SDK installation   #"
+echo -e "\e[33m#####################################"
+
 sudo apt purge libopencv*
 mkdir ~/src
 cd ~/src
@@ -66,6 +80,11 @@ chmod +x ZED_SDK_JP4.2_v2.8.1.run
 ./ZED_SDK_JP4.2_v2.8.1.run
 
 # Compile and install gtsam, g2o, and rtabmap
+echo -e "\e[33m#####################################"
+echo -e "\e[33m# gtsam, g2o, and rtabmap           #"
+echo -e "\e[33m#####################################"
+
+
 cd ~/src
 git clone https://bitbucket.org/gtborg/gtsam.git
 cd gtsam/
@@ -97,6 +116,10 @@ make
 sudo make install
 
 # ROS installation
+echo -e "\e[33m#####################################"
+echo -e "\e[33m# ROS and logiler pkgs installation #"
+echo -e "\e[33m#####################################"
+
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 sudo apt update
@@ -165,6 +188,10 @@ sudo apt purge ros-melodic-libg2o
 catkin_make
 
 # udev rules and k2k setting
+echo -e "\e[33m#####################################"
+echo -e "\e[33m# k2k and rmc installation          #"
+echo -e "\e[33m#####################################"
+
 sudo sh -c 'echo "nvidia ALL=NOPASSWD: ALL" >> /etc/sudoers.d/logilerOverrides'
 sudo usermod -aG dialout nvidia
 cd ~/src
