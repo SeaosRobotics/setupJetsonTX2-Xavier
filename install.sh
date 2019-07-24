@@ -141,7 +141,7 @@ echo "source ~/.bash_ros" >> ~/.bashrc
 mkdir -p ~/ros/catkin_ws/src
 cd ~/ros/catkin_ws/
 catkin_make
-bash
+source ~/.bashrc
 sudo apt install ros-melodic-rosserial-python
 
 # Logiler pkgs installation
