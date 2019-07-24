@@ -27,7 +27,9 @@ echo -e "\e[33m# SSD installation and HOME setting #"
 echo -e "\e[33m#####################################"
 
 sudo parted /dev/nvme0n1 mklabel gpt
+sleep 1
 sudo parted /dev/nvme0n1 mkpart xavier_ssd 0% 100%
+sleep 2
 sudo mkfs.ext4 /dev/nvme0n1p1
 
 uuid=(`sudo blkid /dev/nvme0n1p1  | xargs`)
@@ -92,7 +94,7 @@ git checkout 4.0.0-alpha2
 mkdir build
 cd build
 cmake -DGTSAM_USE_SYSTEM_EIGEN=ON ..
-make
+make -j7
 sudo make install
 
 cd ~/src
@@ -105,14 +107,14 @@ sudo apt install libqglviewer-headers
 mkdir build
 cd build
 cmake -DBUILD_WITH_MARCH_NATIVE=OFF ..
-make
+make -j7
 sudo make install
 
 cd ~/src
 git clone https://github.com/SeaosRobotics/rtabmap.git
 cd rtabmap/build
 cmake ..
-make
+make -j7
 sudo make install
 
 # ROS installation
