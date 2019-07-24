@@ -80,7 +80,7 @@ wget https://www.stereolabs.com/developers/downloads/ZED_SDK_JP4.2_v2.8.1.run
 chmod +x ZED_SDK_JP4.2_v2.8.1.run
 ./ZED_SDK_JP4.2_v2.8.1.run
 cd ~
-sed -i -e "s/LD_LIBRARY_PATH=/LD_LIBRARY_PATH=/usr/local/lib:/g" .bashrc
+sed -i -e "s/LD_LIBRARY_PATH=/LD_LIBRARY_PATH=\/usr\/local\/lib:/g" .bashrc
 source ~/.bashrc
 
 # Compile and install gtsam, g2o, and rtabmap
