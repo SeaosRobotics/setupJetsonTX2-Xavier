@@ -62,6 +62,7 @@ echo -e "\e[33m# OpenCV and ZED SDK installation   #"
 echo -e "\e[33m#####################################"
 
 sudo apt purge libopencv*
+sudo apt autoremove
 mkdir ~/src
 cd ~/src
 git clone https://github.com/yuusuke0126-seaos/buildOpenCVXavier.git
@@ -69,8 +70,6 @@ cd buildOpenCVXavier/
 git checkout 3.4.6
 ./buildOpenCV.sh
 
-cd ~
-sed -i -e "s/LD_LIBRARY_PATH=/LD_LIBRARY_PATH=/usr/local/lib:/g" .bashrc
 sudo apt install libboost-all-dev libpcl-dev
 
 # Installation ZED SDK
@@ -80,6 +79,9 @@ cd ZED_SDK
 wget https://www.stereolabs.com/developers/downloads/ZED_SDK_JP4.2_v2.8.1.run
 chmod +x ZED_SDK_JP4.2_v2.8.1.run
 ./ZED_SDK_JP4.2_v2.8.1.run
+cd ~
+sed -i -e "s/LD_LIBRARY_PATH=/LD_LIBRARY_PATH=/usr/local/lib:/g" .bashrc
+source ~/.bashrc
 
 # Compile and install gtsam, g2o, and rtabmap
 echo -e "\e[33m#####################################"
@@ -208,7 +210,7 @@ cd ~/src
 git clone https://github.com/SeaosRobotics/logiler_utils.git
 cd logiler_utils
 git checkout feature/installer
-cd script/include
+cd scripts/include
 sed -i -e "s/  exit/#  exit/" nodejs.sh
 sed -i -e "s/\$HOME/\/xavier_ssd\/nvidia/" nodejs.sh
 chmod +x nodejs.sh
