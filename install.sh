@@ -132,7 +132,6 @@ git clone https://github.com/SeaosRobotics/logiler_description.git
 git clone https://github.com/SeaosRobotics/logiler_navigation.git
 git clone https://github.com/ros-planning/navigation.git
 git clone https://github.com/DLu/navigation_layers.git
-git clone https://github.com/SeaosRobotics/obstacle_monitor.git
 git clone https://github.com/SeaosRobotics/obstacle_msgs.git
 git clone https://github.com/SeaosRobotics/pipeline_planner.git
 git clone https://github.com/SeaosRobotics/roboline.git
@@ -152,7 +151,6 @@ cd ../logiler_description; git checkout release/0.1.0.1;
 cd ../logiler_navigation; git checkout release/0.1.0.0;
 cd ../navigation; git checkout melodic-devel;
 cd ../navigation_layers; git checkout melodic;
-cd ../obstacle_monitor; git checkout feature/dumpcostpoints;
 cd ../obstacle_msgs; git checkout release/0.1.0.0;
 cd ../pipeline_planner; git checkout develop;
 cd ../roboline; git checkout develop;
