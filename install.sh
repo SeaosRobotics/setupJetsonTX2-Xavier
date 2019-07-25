@@ -41,6 +41,11 @@ do
     fi
 done
 
+if ![[ $uuid =~ ^UUID=* ]]; then
+    echo "Somthing error occurs during SSD format!"
+    exit
+fi
+
 sudo mkdir /xavier_ssd
 sudo mount /dev/nvme0n1p1 /xavier_ssd # <-- At here, /xavier_ssd won't belong to nvidia in above way...
 sudo chown nvidia:nvidia /xavier_ssd
