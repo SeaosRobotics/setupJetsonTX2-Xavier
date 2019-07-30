@@ -223,3 +223,18 @@ chmod +x nodejs.sh
 
 cd ~
 sed -i -e "s/\$HOME/\/xavier_ssd\/nvidia/" .bashrc
+
+sudo apt install libbluetooth-dev
+cd ~/ros
+git clone https://github.com/SeaosRobotics/rmc.git
+cd rmc
+git checkout develop
+npm install
+cp rmc.conf.sample.yaml rmc.conf.yaml
+cp rmc.path.conf.sample.yaml rmc.path.conf.yaml
+pm2 start dist
+pm2 startup
+echo -e "\e[33m###############################"
+echo -e "\e[33m# Please do above command,    #"
+echo -e "\e[33m# Then do 'pm2 save'          #"
+echo -e "\e[33m###############################"
