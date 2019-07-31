@@ -180,4 +180,18 @@ chmod +x nodejs.sh
 
 cd ~
 sed -i -e "s/\$HOME/\/xavier_ssd\/nvidia/" .bashrc
+
+sudo apt install libbluetooth-dev
+cd ~/ros
+git clone https://github.com/SeaosRobotics/rmc.git
+cd rmc
+git checkout develop
+npm install
+cp rmc.conf.sample.yaml rmc.conf.yaml
+cp rmc.path.conf.sample.yaml rmc.path.conf.yaml
+pm2 start dist
+pm2 startup
 ```
+- After `pm2 startup`, a command will appear. Please execute it. The command is like below,
+`(ref) sudo env PATH=$PATH:/xavier_ssd/nvidia/.nvm/versions/node/v8.1.2/bin /xavier_ssd/nvidia/.nvm/versions/node/v8.1.2/lib/node_modules/pm2/bin/pm2 startup systemd -u nvidia --hp /home/nvidia`
+- `pm2 save`
