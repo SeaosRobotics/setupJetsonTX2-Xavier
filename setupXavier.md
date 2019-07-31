@@ -193,7 +193,7 @@ pm2 start dist
 pm2 startup
 ```
 - After `pm2 startup`, a command will appear. Please execute it. The command is like below (reference), 
-```
-sudo env PATH=$PATH:/xavier_ssd/nvidia/.nvm/versions/node/v8.1.2/bin /xavier_ssd/nvidia/.nvm/versions/node/v8.1.2/lib/node_modules/pm2/bin/pm2 startup systemd -u nvidia --hp /home/nvidia
-```
+
+`sudo env PATH=$PATH:/xavier_ssd/nvidia/.nvm/versions/node/v8.1.2/bin /xavier_ssd/nvidia/.nvm/versions/node/v8.1.2/lib/node_modules/pm2/bin/pm2 startup systemd -u nvidia --hp /home/nvidia`
+
 - Then, `pm2 save`
