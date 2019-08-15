@@ -41,9 +41,11 @@ do
     fi
 done
 
-if ![[ $uuid =~ ^UUID=* ]]; then
+if [[ $uuid =~ ^UUID=* ]]; then
+    echo "Format SSD is succeeded!"
+else
     echo "Somthing error occurs during SSD format!"
-    exit
+    exit 1
 fi
 
 sudo mkdir /xavier_ssd
