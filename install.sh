@@ -231,6 +231,7 @@ cd ~/ros
 git clone https://github.com/SeaosRobotics/rmc.git
 cd rmc
 git checkout develop
+source ~/.bashrc
 npm install
 cp rmc.conf.sample.yaml rmc.conf.yaml
 cp rmc.path.conf.sample.yaml rmc.path.conf.yaml
