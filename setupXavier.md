@@ -74,7 +74,9 @@ sudo make install
 
 cd ~/src
 git clone https://github.com/SeaosRobotics/rtabmap.git
-cd rtabmap/build
+cd rtabmap/
+git checkout develop
+cd build/
 cmake ..
 make
 sudo make install
