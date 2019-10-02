@@ -47,7 +47,7 @@ chmod +x ZED_SDK_JP4.2_v2.8.1.run
 ./ZED_SDK_JP4.2_v2.8.1.run
 ```
 
-## Compile and install gtsam, g2o, and rtabmap
+## Compile and install gtsam, g2o, rtabmap, apriltag, logger, and monitoring
 ```
 cd ~/src
 git clone https://bitbucket.org/gtborg/gtsam.git
@@ -86,6 +86,19 @@ git clone https://github.com/SeaosRobotics/apriltag.git
 cd apriltag/
 cmake .
 sudo make install
+
+cd ~/src
+git clone https://github.com/SeaosRobotics/logger.git
+cd logger/
+git checkout v0.0.4
+python2.7 setup.py bdist_egg --exclude-source-files
+
+cd ~/src
+git clone https://github.com/SeaosRobotics/monitoring.git
+cd monitoring
+git checkout v0.0.3
+python2.7 setup.py --user nvidia
+sudo systemctl start monitor.service
 ```
 ## ROS installation
 ```
