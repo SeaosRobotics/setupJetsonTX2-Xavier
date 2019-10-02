@@ -128,6 +128,12 @@ cmake ..
 make -j7
 sudo make install
 
+cd ~/src
+git clone https://github.com/SeaosRobotics/apriltag.git
+cd apriltag/
+cmake .
+sudo make install
+
 # ROS installation
 echo -e "\e[33m#####################################"
 echo -e "\e[33m# ROS and logiler pkgs installation #"
