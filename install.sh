@@ -164,6 +164,7 @@ source ~/.bashrc
 # Logiler pkgs installation
 ## TODO git config not to input usrname and pswd for each times
 cd ~/ros/catkin_ws/src
+git clone https://github.com/SeaosRobotics/apriltag_ros.git
 git clone https://github.com/SeaosRobotics/cast_milestones.git
 git clone https://github.com/rst-tu-dortmund/costmap_converter.git
 git clone https://github.com/ros-perception/depthimage_to_laserscan.git
@@ -173,9 +174,9 @@ git clone https://github.com/SeaosRobotics/logiler_bringup.git
 git clone https://github.com/SeaosRobotics/logiler_description.git
 git clone https://github.com/SeaosRobotics/logiler_navigation.git
 git clone https://github.com/ros-planning/navigation.git
-git clone https://github.com/DLu/navigation_layers.git
 git clone https://github.com/SeaosRobotics/obstacle_msgs.git
 git clone https://github.com/SeaosRobotics/pipeline_planner.git
+git clone https://github.com/SeaosRobotics/range_sensor_layer
 git clone https://github.com/SeaosRobotics/roboline.git
 git clone https://github.com/GT-RAIL/robot_pose_publisher.git
 git clone https://github.com/SeaosRobotics/ros_ultrasonic_msgs.git
@@ -190,12 +191,12 @@ cd ../image_transport_plugins; git checkout indigo-devel;
 cd ../key_cart; git checkout develop;
 cd ../logiler_bringup; git checkout develop;
 cd ../logiler_description; git checkout release/0.1.0.1;
-cd ../logiler_navigation; git checkout release/0.1.0.0;
+cd ../logiler_navigation; git checkout develop;
 cd ../navigation; git checkout melodic-devel;
-cd ../navigation_layers; git checkout melodic;
 cd ../obstacle_msgs; git checkout release/0.1.0.0;
 cd ../pipeline_planner; git checkout develop;
-cd ../roboline; git checkout develop;
+cd ../range_sensor_layer; git checkout develop;
+cd ../roboline; git checkout develop-RedDaiwa;
 cd ../ros_ultrasonic_msgs; git checkout develop;
 cd ../teb_local_planner; git checkout melodic-devel;
 cd ../vision_opencv; git checkout melodic;
