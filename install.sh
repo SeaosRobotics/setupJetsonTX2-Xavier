@@ -90,10 +90,10 @@ cd ~
 sed -i -e "s/LD_LIBRARY_PATH=/LD_LIBRARY_PATH=\/usr\/local\/lib:/g" .bashrc
 source ~/.bashrc
 
-# Compile and install gtsam, g2o, and rtabmap
-echo -e "\e[33m#####################################"
-echo -e "\e[33m# gtsam, g2o, and rtabmap           #"
-echo -e "\e[33m#####################################"
+# Compile and install gtsam, g2o, rtabmap, apriltag, logger, and monitoring
+echo -e "\e[33m#########################################################"
+echo -e "\e[33m# gtsam, g2o, rtabmap, apriltag, logger, and monitoring #"
+echo -e "\e[33m#########################################################"
 
 
 cd ~/src
@@ -133,6 +133,20 @@ git clone https://github.com/SeaosRobotics/apriltag.git
 cd apriltag/
 cmake .
 sudo make install
+
+cd ~/src
+git clone https://github.com/SeaosRobotics/logger.git
+cd logger/
+git checkout v0.0.4
+python2.7 setup.py bdist_egg --exclude-source-files
+
+cd ~/src
+git clone https://github.com/SeaosRobotics/monitoring.git
+cd monitoring
+git checkout v0.0.3
+python2.7 setup.py --user nvidia
+sudo systemctl start monitor.service
+
 
 # ROS installation
 echo -e "\e[33m#####################################"
