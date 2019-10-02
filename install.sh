@@ -1,29 +1,75 @@
-# Setup for Jetson AGX Xavier
+#!/bin/bash
 
-## Flush Jetpack to Xavier with SDK Manager
-- Get SDK Manager on your host PC from [here](https://developer.nvidia.com/embedded/downloads).
-- Flush Jetpack to Xavier. Refer to [here](https://docs.nvidia.com/sdk-manager/install-with-sdkm-jetson/index.html).
-- user name should be "nvidia", hostname should be "x(number)".
+# "###############################"
+# "# Seaos Inc.                  #"
+# "# Automatic Xavier type       #"
+# "# keycart installer           #"
+# "# Created by Yusuke Kobayashi #"
+# "# y-kobayashi@seaos.co.jp     #"
+# "###############################"
 
-## Change nvpmodel to max mode
-```bash
+echo -e "\e[33m###################################"
+echo -e "\e[33m# Seaos Inc.                      #"
+echo -e "\e[33m# Automatic st-keycart installer. #"
+echo -e "\e[33m###################################"
+
+# Change nvpmodel to max mode
 sudo nvpmodel -m 0
 sudo jetson_clocks
-```
 
-## Installation SSD and Wifi card
-- Follow [this instruction](https://medium.com/@ramin.nabati/installing-an-nvme-ssd-drive-on-nvidia-jetson-xavier-37183c948978).
-- Change home directory path under ssd.
-```bash
+# Prepare the enviroment
+git config --global credential.helper cache
+
+# Installation SSD and Wifi card
+
+echo -e "\e[33m#####################################"
+echo -e "\e[33m# SSD installation and HOME setting #"
+echo -e "\e[33m#####################################"
+
+sudo parted /dev/nvme0n1 mklabel gpt
+sleep 1
+sudo parted /dev/nvme0n1 mkpart xavier_ssd 0% 100%
+sleep 2
+sudo mkfs.ext4 /dev/nvme0n1p1
+
+uuid=(`sudo blkid /dev/nvme0n1p1  | xargs`)
+for i in ${uuid[@]}
+do
+    if [[ $i =~ ^UUID=* ]]; then
+        uuid="$i /xavier_ssd ext4 defaults 0 2"
+        break
+    fi
+done
+
+if [[ $uuid =~ ^UUID=* ]]; then
+    echo "Format SSD is succeeded!"
+else
+    echo "Somthing error occurs during SSD format!"
+    exit 1
+fi
+
+sudo mkdir /xavier_ssd
+sudo mount /dev/nvme0n1p1 /xavier_ssd # <-- At here, /xavier_ssd won't belong to nvidia in above way...
+sudo chown nvidia:nvidia /xavier_ssd
+sudo chmod 755 /xavier_ssd
+
+sudo cp /etc/fstab /etc/fstab.bkup
+sudo sh -c "echo $uuid >> /etc/fstab"
+## to here
+
 cd /home
 cp -r nvidia/ /xavier_ssd/
 sudo mv nvidia/ nvidia_bkup/
 sudo ln -s /xavier_ssd/nvidia
-```
 
-## Compile and install OpenCV 3.4.6
-```
+# Compile and install OpenCV 3.4.6
+
+echo -e "\e[33m#####################################"
+echo -e "\e[33m# OpenCV and ZED SDK installation   #"
+echo -e "\e[33m#####################################"
+
 sudo apt purge libopencv*
+sudo apt autoremove
 mkdir ~/src
 cd ~/src
 git clone https://github.com/yuusuke0126-seaos/buildOpenCVXavier.git
@@ -31,24 +77,25 @@ cd buildOpenCVXavier/
 git checkout 3.4.6
 ./buildOpenCV.sh
 
-# After installing...
-cd ~
-sed -i -e "s/LD_LIBRARY_PATH=/LD_LIBRARY_PATH=/usr/local/lib:/g" .bashrc
 sudo apt install libboost-all-dev libpcl-dev
-```
 
-## Installation ZED SDK
-```
+# Installation ZED SDK
 cd ~/src
 mkdir ZED_SDK
 cd ZED_SDK
 wget https://www.stereolabs.com/developers/downloads/ZED_SDK_JP4.2_v2.8.1.run
 chmod +x ZED_SDK_JP4.2_v2.8.1.run
 ./ZED_SDK_JP4.2_v2.8.1.run
-```
+cd ~
+sed -i -e "s/LD_LIBRARY_PATH=/LD_LIBRARY_PATH=\/usr\/local\/lib:/g" .bashrc
+source ~/.bashrc
 
-## Compile and install gtsam, g2o, rtabmap, apriltag, logger, and monitoring
-```
+# Compile and install gtsam, g2o, rtabmap, apriltag, logger, and monitoring
+echo -e "\e[33m#########################################################"
+echo -e "\e[33m# gtsam, g2o, rtabmap, apriltag, logger, and monitoring #"
+echo -e "\e[33m#########################################################"
+
+
 cd ~/src
 git clone https://bitbucket.org/gtborg/gtsam.git
 cd gtsam/
@@ -56,7 +103,7 @@ git checkout 4.0.0-alpha2
 mkdir build
 cd build
 cmake -DGTSAM_USE_SYSTEM_EIGEN=ON ..
-make
+make -j7
 sudo make install
 
 cd ~/src
@@ -69,7 +116,7 @@ sudo apt install libqglviewer-headers
 mkdir build
 cd build
 cmake -DBUILD_WITH_MARCH_NATIVE=OFF ..
-make
+make -j7
 sudo make install
 
 cd ~/src
@@ -78,7 +125,7 @@ cd rtabmap/
 git checkout develop
 cd build/
 cmake ..
-make
+make -j7
 sudo make install
 
 cd ~/src
@@ -99,9 +146,13 @@ cd monitoring
 git checkout v0.0.3
 python2.7 setup.py --user nvidia
 sudo systemctl start monitor.service
-```
-## ROS installation
-```
+
+
+# ROS installation
+echo -e "\e[33m#####################################"
+echo -e "\e[33m# ROS and logiler pkgs installation #"
+echo -e "\e[33m#####################################"
+
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 sudo apt update
@@ -118,15 +169,14 @@ git checkout develop
 cp .bash_ros ~/
 echo "source ~/.bash_ros" >> ~/.bashrc
 
+sudo apt install ros-melodic-rosserial-python ros-melodic-kobuki-msgs
 mkdir -p ~/ros/catkin_ws/src
 cd ~/ros/catkin_ws/
 catkin_make
-bash
-sudo apt install ros-melodic-rosserial-python
-```
+source ~/.bashrc
 
-## Logiler pkgs installation
-```
+# Logiler pkgs installation
+## TODO git config not to input usrname and pswd for each times
 cd ~/ros/catkin_ws/src
 git clone https://github.com/SeaosRobotics/apriltag_ros.git
 git clone https://github.com/SeaosRobotics/cast_milestones.git
@@ -170,35 +220,30 @@ cd ~/ros/catkin_ws
 rosdep install -r --from-paths src --ignore-src # Be careful not to install libopencv*
 sudo apt purge ros-melodic-libg2o
 catkin_make
-```
 
-## udev rules and k2k setting
-- No password setting, make logilerOverrides on /etc/sudoers.d
-```
+# udev rules and k2k setting
+echo -e "\e[33m#####################################"
+echo -e "\e[33m# k2k and rmc installation          #"
+echo -e "\e[33m#####################################"
+
 sudo sh -c 'echo "nvidia ALL=NOPASSWD: ALL" >> /etc/sudoers.d/logilerOverrides'
-```
-- Add dialout for nvidia groups, `sudo usermod -aG dialout nvidia`
-- k2k installation
-```
+sudo usermod -aG dialout nvidia
 cd ~/src
 git clone https://github.com/SeaosRobotics/k2k.git
 cd k2k
 git checkout develop
 cd service
 ./install.sh
-```
 
-## rmc and pm2 installation
-```
+# rmc and pm2 installation
 cd ~/src
 git clone https://github.com/SeaosRobotics/logiler_utils.git
 cd logiler_utils
 git checkout feature/installer
-cd script/include
+cd scripts/include
 sed -i -e "s/  exit/#  exit/" nodejs.sh
 sed -i -e "s/\$HOME/\/xavier_ssd\/nvidia/" nodejs.sh
-chmod +x nodejs.sh
-./nodejs.sh
+source nodejs.sh
 
 cd ~
 sed -i -e "s/\$HOME/\/xavier_ssd\/nvidia/" .bashrc
@@ -213,9 +258,7 @@ cp rmc.conf.sample.yaml rmc.conf.yaml
 cp rmc.path.conf.sample.yaml rmc.path.conf.yaml
 pm2 start dist
 pm2 startup
-```
-- After `pm2 startup`, a command will appear. Please execute it. The command is like below (reference), 
-
-`sudo env PATH=$PATH:/xavier_ssd/nvidia/.nvm/versions/node/v8.1.2/bin /xavier_ssd/nvidia/.nvm/versions/node/v8.1.2/lib/node_modules/pm2/bin/pm2 startup systemd -u nvidia --hp /home/nvidia`
-
-- Then, `pm2 save`
+echo -e "\e[33m###############################"
+echo -e "\e[33m# Please do above command,    #"
+echo -e "\e[33m# Then do 'pm2 save'          #"
+echo -e "\e[33m###############################"

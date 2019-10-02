@@ -1,0 +1,38 @@
+source /opt/ros/melodic/setup.bash
+source /home/nvidia/ros/catkin_ws/devel/setup.bash
+
+# Environment variables to work with remote workstation
+export ROS_HOSTNAME=$HOSTNAME
+export ROS_MASTER_URI=http://$HOSTNAME:11311
+export ROS_IP=$(ifconfig wlan0 | perl -nle 's/dr:(\S+)/print $1/e')
+
+# Customise Logiler
+export LOGILER_BASE=kobuki
+export LOGILER_BATTERY=/sys/class/power_supply/BAT0
+export LOGILER_STACKS=hexagons
+export LOGILER_TYPE=short
+export LOGILER_3D_SENSOR=zed
+export LOGILER_3D_SCAN=true
+export LOGILER_2D_SENSOR=none
+# export LOGILER_2D_SENSOR=velodyne
+export LOGILER_OBSERVATION_SOURCES=2d_3d_bump
+# export LOGILER_OBSERVATION_SOURCES=2d_bump
+export LOGILER_SIMULATION=false
+export LOGILER_SERIAL_PORT=/dev/keycart
+# export LOGILER_SERIAL_PORT=/dev/pts/4
+export LOGILER_NAME=st-keycart-215
+export LOGILER_MAP_FILE=/home/$USER/.ros/map.yaml
+export LOGILER_INITIAL_POSE_X=2.31522866415
+export LOGILER_INITIAL_POSE_Y=1.0219815436
+export LOGILER_INITIAL_POSE_A=0.3
+
+export LOGILER_ULTRASONIC_SENSOR=false
+
+
+export LOGILER_LIDAR_MIN=-1.50796447372
+export LOGILER_LIDAR_MAX=1.50796447372
+
+export LOGILER_FRONT_CAMERA=10026742
+# export LOGILER_FRONT_CAMERA=10026519
+export LOGILER_BACK_CAMERA=10026731
+
