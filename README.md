@@ -20,6 +20,5 @@ mkdir ~/temp
 cd ~/temp/
 git clone https://github.com/yuusuke0126-seaos/setupJetsonTX2-Xavier.git
 cd setupJetsonTX2-Xavier/
-git checkout develop
 source install.sh
 ```

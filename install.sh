@@ -165,7 +165,6 @@ sudo apt install python-rosinstall python-rosinstall-generator python-wstool bui
 cd ~/src
 git clone https://github.com/yuusuke0126-seaos/setupJetsonTX2-Xavier.git
 cd setupJetsonTX2-Xavier
-git checkout develop
 cp .bash_ros ~/
 echo "source ~/.bash_ros" >> ~/.bashrc
 
