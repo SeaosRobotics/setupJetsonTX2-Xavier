@@ -83,7 +83,7 @@ sudo apt install libboost-all-dev libpcl-dev
 cd ~/src
 mkdir ZED_SDK
 cd ZED_SDK
-wget https://www.stereolabs.com/developers/downloads/ZED_SDK_JP4.2_v2.8.1.run
+wget https://stereolabs.sfo2.cdn.digitaloceanspaces.com/zedsdk/2.8/ZED_SDK_JP4.2_v2.8.1.run
 chmod +x ZED_SDK_JP4.2_v2.8.1.run
 ./ZED_SDK_JP4.2_v2.8.1.run
 cd ~
