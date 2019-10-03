@@ -134,6 +134,8 @@ cd apriltag/
 cmake .
 sudo make install
 
+sudo apt install python-pip
+
 cd ~/src
 git clone https://github.com/SeaosRobotics/logger.git
 cd logger/
