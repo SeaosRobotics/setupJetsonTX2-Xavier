@@ -211,7 +211,7 @@ cd ../navigation; git checkout melodic-devel;
 cd ../obstacle_msgs; git checkout release/0.1.0.0;
 cd ../pipeline_planner; git checkout develop;
 cd ../range_sensor_layer; git checkout develop;
-cd ../roboline; git checkout develop-RedDaiwa;
+cd ../roboline; git checkout develop;
 cd ../ros_ultrasonic_msgs; git checkout develop;
 cd ../teb_local_planner; git checkout melodic-devel;
 cd ../vision_opencv; git checkout melodic;
