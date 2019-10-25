@@ -143,10 +143,17 @@ git checkout v0.0.4
 python2.7 setup.py bdist_egg --exclude-source-files
 
 cd ~/src
+git clone https://github.com/SeaosRobotics/zed-python-api.git
+cd zed-python-api
+python -m pip install cython numpy
+python setup.py build
+sudo python setup.py install
+
+cd ~/src
 git clone https://github.com/SeaosRobotics/monitoring.git
 cd monitoring
 git checkout v0.0.3
-python2.7 setup.py --user nvidia
+sudo python2.7 setup.py --user nvidia
 sudo systemctl start monitor.service
 
 
