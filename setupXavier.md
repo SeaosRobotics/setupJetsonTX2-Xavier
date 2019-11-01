@@ -148,7 +148,7 @@ git clone https://github.com/SeaosRobotics/logiler_navigation.git
 git clone https://github.com/ros-planning/navigation.git
 git clone https://github.com/SeaosRobotics/obstacle_msgs.git
 git clone https://github.com/SeaosRobotics/pipeline_planner.git
-git clone https://github.com/SeaosRobotics/range_sensor_layer
+git clone https://github.com/SeaosRobotics/range_sensor_layer.git
 git clone https://github.com/SeaosRobotics/roboline.git
 git clone https://github.com/GT-RAIL/robot_pose_publisher.git
 git clone https://github.com/SeaosRobotics/ros_ultrasonic_msgs.git
