@@ -72,7 +72,7 @@ sudo apt purge libopencv*
 sudo apt autoremove
 mkdir ~/src
 cd ~/src
-git clone https://github.com/yuusuke0126-seaos/buildOpenCVXavier.git
+git clone https://github.com/yuusuke0126/buildOpenCVXavier.git
 cd buildOpenCVXavier/
 git checkout 3.4.6
 ./buildOpenCV.sh
@@ -172,7 +172,7 @@ source /opt/ros/melodic/setup.bash
 sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
 
 cd ~/src
-git clone https://github.com/yuusuke0126-seaos/setupJetsonTX2-Xavier.git
+git clone https://github.com/yuusuke0126/setupJetsonTX2-Xavier.git
 cd setupJetsonTX2-Xavier
 cp .bash_ros ~/
 echo "source ~/.bash_ros" >> ~/.bashrc
