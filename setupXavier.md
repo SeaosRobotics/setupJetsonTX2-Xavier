@@ -73,6 +73,24 @@ make
 sudo make install
 
 cd ~/src
+git clone https://github.com/ethz-asl/libnabo.git
+cd libnabo/
+mkdir build
+cd build/
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+make -j7
+sudo make install
+
+cd ~/src
+git clone https://github.com/ethz-asl/libpointmatcher.git
+cd libpointmatcher/
+mkdir build
+cd build/
+cmake ..
+make -j7
+sudo make install
+
+cd ~/src
 git clone https://github.com/SeaosRobotics/rtabmap.git
 cd rtabmap/
 git checkout develop
