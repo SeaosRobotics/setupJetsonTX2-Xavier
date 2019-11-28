@@ -196,6 +196,7 @@ cp .bash_ros ~/
 echo "source ~/.bash_ros" >> ~/.bashrc
 
 sudo apt install ros-melodic-rosserial-python ros-melodic-kobuki-msgs
+sudo apt install ros-melodic-velodyne-pointcloud
 mkdir -p ~/ros/catkin_ws/src
 cd ~/ros/catkin_ws/
 catkin_make
