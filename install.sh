@@ -72,7 +72,7 @@ sudo apt purge libopencv*
 sudo apt autoremove
 mkdir ~/src
 cd ~/src
-git clone https://github.com/yuusuke0126-seaos/buildOpenCVXavier.git
+git clone https://github.com/yuusuke0126/buildOpenCVXavier.git
 cd buildOpenCVXavier/
 git checkout 3.4.6
 ./buildOpenCV.sh
@@ -161,10 +161,17 @@ git checkout v0.0.4
 python2.7 setup.py bdist_egg --exclude-source-files
 
 cd ~/src
+git clone https://github.com/SeaosRobotics/zed-python-api.git
+cd zed-python-api
+python -m pip install cython numpy
+python setup.py build
+sudo python setup.py install
+
+cd ~/src
 git clone https://github.com/SeaosRobotics/monitoring.git
 cd monitoring
 git checkout v0.0.3
-python2.7 setup.py --user nvidia
+sudo python2.7 setup.py --user nvidia
 sudo systemctl start monitor.service
 
 
@@ -183,7 +190,7 @@ source /opt/ros/melodic/setup.bash
 sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
 
 cd ~/src
-git clone https://github.com/yuusuke0126-seaos/setupJetsonTX2-Xavier.git
+git clone https://github.com/yuusuke0126/setupJetsonTX2-Xavier.git
 cd setupJetsonTX2-Xavier
 cp .bash_ros ~/
 echo "source ~/.bash_ros" >> ~/.bashrc
@@ -209,7 +216,7 @@ git clone https://github.com/SeaosRobotics/logiler_navigation.git
 git clone https://github.com/ros-planning/navigation.git
 git clone https://github.com/SeaosRobotics/obstacle_msgs.git
 git clone https://github.com/SeaosRobotics/pipeline_planner.git
-git clone https://github.com/SeaosRobotics/range_sensor_layer
+git clone https://github.com/SeaosRobotics/range_sensor_layer.git
 git clone https://github.com/SeaosRobotics/roboline.git
 git clone https://github.com/GT-RAIL/robot_pose_publisher.git
 git clone https://github.com/SeaosRobotics/ros_ultrasonic_msgs.git
@@ -229,7 +236,7 @@ cd ../navigation; git checkout melodic-devel;
 cd ../obstacle_msgs; git checkout release/0.1.0.0;
 cd ../pipeline_planner; git checkout develop;
 cd ../range_sensor_layer; git checkout develop;
-cd ../roboline; git checkout develop-RedDaiwa;
+cd ../roboline; git checkout develop;
 cd ../ros_ultrasonic_msgs; git checkout develop;
 cd ../teb_local_planner; git checkout melodic-devel;
 cd ../vision_opencv; git checkout melodic;
