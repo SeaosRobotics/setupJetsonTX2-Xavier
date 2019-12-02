@@ -118,13 +118,13 @@ git clone https://github.com/SeaosRobotics/zed-python-api.git
 cd zed-python-api
 python -m pip install cython numpy
 python setup.py build
-sudo python setup.py install
+python setup.py install
 
 cd ~/src
 git clone https://github.com/SeaosRobotics/monitoring.git
 cd monitoring
-git checkout v0.0.3
-sudo python2.7 setup.py --user nvidia
+git checkout v0.0.5
+python2.7 setup.py --user nvidia
 sudo systemctl start monitor.service
 ```
 ## ROS installation
