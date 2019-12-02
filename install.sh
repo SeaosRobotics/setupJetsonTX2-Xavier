@@ -190,7 +190,7 @@ source /opt/ros/melodic/setup.bash
 sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
 
 cd ~/src
-git clone https://github.com/yuusuke0126/setupJetsonTX2-Xavier.git
+git clone https://github.com/SeaosRobotics/setupJetsonTX2-Xavier.git
 cd setupJetsonTX2-Xavier
 cp .bash_ros ~/
 echo "source ~/.bash_ros" >> ~/.bashrc
@@ -226,6 +226,9 @@ git clone https://github.com/SeaosRobotics/teb_local_planner.git
 git clone https://github.com/ros-perception/vision_opencv.git
 git clone https://github.com/SeaosRobotics/zed-ros-wrapper.git
 
+git clone https://github.com/SeaosRobotics/obstacle_monitor.git
+git clone https://github.com/SeaosRobotics/pin_stop_points.git
+
 cd cast_milestones; git checkout feature/service;
 cd ../depthimage_to_laserscan; git checkout melodic-devel;
 cd ../image_transport_plugins; git checkout indigo-devel;
@@ -242,6 +245,8 @@ cd ../ros_ultrasonic_msgs; git checkout develop;
 cd ../teb_local_planner; git checkout melodic-devel;
 cd ../vision_opencv; git checkout melodic;
 cd ../zed-ros-wrapper; git checkout develop;
+
+cd ../obstacle_monitor; git checkout develop;
 
 cd ~/ros/catkin_ws
 rosdep install -r --from-paths src --ignore-src # Be careful not to install libopencv*
