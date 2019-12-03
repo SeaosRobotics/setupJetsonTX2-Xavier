@@ -118,7 +118,7 @@ git clone https://github.com/SeaosRobotics/zed-python-api.git
 cd zed-python-api
 python -m pip install cython numpy
 python setup.py build
-python setup.py install
+sudo python setup.py install
 
 cd ~/src
 git clone https://github.com/SeaosRobotics/monitoring.git
@@ -219,6 +219,44 @@ cd service
 ./install.sh
 ```
 
+## soracom and bluetooth setting
+```
+sudo apt install libbluetooth-dev
+
+cd ~/src/
+git clone https://github.com/SeaosRobotics/soracom_setup.git
+cd soracom_setup
+sudo ./soracom.sh
+sudo sed -i -e "s/After=sys-subsystem-net-devices-%i.device/#\ After=sys-subsystem-net-devices-%i.device/g" /lib/systemd/system/ifup@.service
+
+sudo apt-get install libical-dev
+sudo apt-get install libreadline-dev
+cd ~/src/
+mkdir bluetooth_setting
+cd bluetooth_setting
+wget http://www.kernel.org/pub/linux/bluetooth/bluez-5.50.tar.xz
+tar -xf bluez-5.50.tar.xz
+wget https://ftp.osuosl.org/pub/blfs/conglomeration/bluez/bluez-5.50-obexd_without_systemd-1.patch
+cd bluez-5.50
+patch -Np1 -i ../bluez-5.50-obexd_without_systemd-1.patch
+sudo apt-get install libudev-dev
+
+./configure --prefix=/usr --mandir=/usr/share/man --sysconfdir=/etc --localstatedir=/var --enable-library
+make -j4
+sudo make install
+
+if [ -e "/lib/systemd/system/bluetooth.service.d/nv-bluetooth-service.conf" ]; then
+    sudo sed -i -e "/^ExecStart=\//c\ExecStart=\/usr\/lib\/bluetooth\/bluetoothd\ --compat" /lib/systemd/system/bluetooth.service.d/nv-bluetooth-service.conf
+    sudo sed -i -e "/^ExecStart=\//a ExecStartPost=\/bin\/chmod\ 666\ \/var\/run\/sdp" /lib/systemd/system/bluetooth.service.d/nv-bluetooth-service.conf
+else
+    sudo sed -i -e "/^ExecStart=\//c\ExecStart=\/usr\/lib\/bluetooth\/bluetoothd\ --compat" /lib/systemd/system/bluetooth.service
+    sudo sed -i -e "/^ExecStart=\//a ExecStartPost=\/bin\/chmod\ 666\ \/var\/run\/sdp" /lib/systemd/system/bluetooth.service
+fi
+
+sudo systemctl daemon-reload
+sudo systemctl restart bluetooth.service
+```
+
 ## rmc and pm2 installation
 ```
 cd ~/src
@@ -234,7 +272,6 @@ chmod +x nodejs.sh
 cd ~
 sed -i -e "s/\$HOME/\/xavier_ssd\/nvidia/" .bashrc
 
-sudo apt install libbluetooth-dev
 cd ~/ros
 git clone https://github.com/SeaosRobotics/rmc.git
 cd rmc
