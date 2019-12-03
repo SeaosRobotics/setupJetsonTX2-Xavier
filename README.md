@@ -21,7 +21,7 @@ sudo jetson_clocks
 ```
 mkdir ~/temp
 cd ~/temp/
-git clone https://github.com/yuusuke0126-seaos/setupJetsonTX2-Xavier.git
+git clone https://github.com/SeaosRobotics/setupJetsonTX2-Xavier.git
 cd setupJetsonTX2-Xavier/
 source install.sh
 ```

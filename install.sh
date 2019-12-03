@@ -72,7 +72,7 @@ sudo apt purge libopencv*
 sudo apt autoremove
 mkdir ~/src
 cd ~/src
-git clone https://github.com/yuusuke0126-seaos/buildOpenCVXavier.git
+git clone https://github.com/yuusuke0126/buildOpenCVXavier.git
 cd buildOpenCVXavier/
 git checkout 3.4.6
 ./buildOpenCV.sh
@@ -120,6 +120,24 @@ make -j7
 sudo make install
 
 cd ~/src
+git clone https://github.com/ethz-asl/libnabo.git
+cd libnabo/
+mkdir build
+cd build/
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+make -j7
+sudo make install
+
+cd ~/src
+git clone https://github.com/ethz-asl/libpointmatcher.git
+cd libpointmatcher/
+mkdir build
+cd build/
+cmake ..
+make -j7
+sudo make install
+
+cd ~/src
 git clone https://github.com/SeaosRobotics/rtabmap.git
 cd rtabmap/
 git checkout develop
@@ -143,9 +161,16 @@ git checkout v0.0.4
 python2.7 setup.py bdist_egg --exclude-source-files
 
 cd ~/src
+git clone https://github.com/SeaosRobotics/zed-python-api.git
+cd zed-python-api
+python -m pip install cython numpy
+python setup.py build
+python setup.py install
+
+cd ~/src
 git clone https://github.com/SeaosRobotics/monitoring.git
 cd monitoring
-git checkout v0.0.3
+git checkout v0.0.5
 python2.7 setup.py --user nvidia
 sudo systemctl start monitor.service
 
@@ -165,12 +190,13 @@ source /opt/ros/melodic/setup.bash
 sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
 
 cd ~/src
-git clone https://github.com/yuusuke0126-seaos/setupJetsonTX2-Xavier.git
+git clone https://github.com/SeaosRobotics/setupJetsonTX2-Xavier.git
 cd setupJetsonTX2-Xavier
 cp .bash_ros ~/
 echo "source ~/.bash_ros" >> ~/.bashrc
 
 sudo apt install ros-melodic-rosserial-python ros-melodic-kobuki-msgs
+sudo apt install ros-melodic-velodyne-pointcloud
 mkdir -p ~/ros/catkin_ws/src
 cd ~/ros/catkin_ws/
 catkin_make
@@ -191,7 +217,7 @@ git clone https://github.com/SeaosRobotics/logiler_navigation.git
 git clone https://github.com/ros-planning/navigation.git
 git clone https://github.com/SeaosRobotics/obstacle_msgs.git
 git clone https://github.com/SeaosRobotics/pipeline_planner.git
-git clone https://github.com/SeaosRobotics/range_sensor_layer
+git clone https://github.com/SeaosRobotics/range_sensor_layer.git
 git clone https://github.com/SeaosRobotics/roboline.git
 git clone https://github.com/GT-RAIL/robot_pose_publisher.git
 git clone https://github.com/SeaosRobotics/ros_ultrasonic_msgs.git
@@ -199,6 +225,9 @@ git clone https://github.com/SeaosRobotics/rtabmap_ros.git
 git clone https://github.com/SeaosRobotics/teb_local_planner.git
 git clone https://github.com/ros-perception/vision_opencv.git
 git clone https://github.com/SeaosRobotics/zed-ros-wrapper.git
+
+git clone https://github.com/SeaosRobotics/obstacle_monitor.git
+git clone https://github.com/SeaosRobotics/pin_stop_points.git
 
 cd cast_milestones; git checkout feature/service;
 cd ../depthimage_to_laserscan; git checkout melodic-devel;
@@ -216,6 +245,8 @@ cd ../ros_ultrasonic_msgs; git checkout develop;
 cd ../teb_local_planner; git checkout melodic-devel;
 cd ../vision_opencv; git checkout melodic;
 cd ../zed-ros-wrapper; git checkout develop;
+
+cd ../obstacle_monitor; git checkout develop;
 
 cd ~/ros/catkin_ws
 rosdep install -r --from-paths src --ignore-src # Be careful not to install libopencv*
