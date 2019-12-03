@@ -165,7 +165,7 @@ git clone https://github.com/SeaosRobotics/zed-python-api.git
 cd zed-python-api
 python -m pip install cython numpy
 python setup.py build
-python setup.py install
+sudo python setup.py install
 
 cd ~/src
 git clone https://github.com/SeaosRobotics/monitoring.git
@@ -268,7 +268,6 @@ cd service
 ./install.sh
 
 # soracom and bluetooth setting
-
 sudo apt install libbluetooth-dev
 
 cd ~/src/
