@@ -267,6 +267,16 @@ git checkout develop
 cd service
 ./install.sh
 
+# soracom and bluetooth setting
+
+sudo apt install libbluetooth-dev
+
+cd ~/src/
+git clone https://github.com/SeaosRobotics/soracom_setup.git
+cd soracom_setup
+sudo ./soracom.sh
+sudo sed -i -e "s/After=sys-subsystem-net-devices-%i.device/#\ After=sys-subsystem-net-devices-%i.device/g" /lib/systemd/system/ifup@.service
+
 # rmc and pm2 installation
 cd ~/src
 git clone https://github.com/SeaosRobotics/logiler_utils.git
@@ -280,7 +290,6 @@ source nodejs.sh
 cd ~
 sed -i -e "s/\$HOME/\/xavier_ssd\/nvidia/" .bashrc
 
-sudo apt install libbluetooth-dev
 cd ~/ros
 git clone https://github.com/SeaosRobotics/rmc.git
 cd rmc
