@@ -49,18 +49,27 @@ else
 fi
 
 sudo mkdir /xavier_ssd
-sudo mount /dev/nvme0n1p1 /xavier_ssd # <-- At here, /xavier_ssd won't belong to nvidia in above way...
+sudo mount /dev/nvme0n1p1 /xavier_ssd
 sudo chown nvidia:nvidia /xavier_ssd
 sudo chmod 755 /xavier_ssd
 
 sudo cp /etc/fstab /etc/fstab.bkup
 sudo sh -c "echo $uuid >> /etc/fstab"
-## to here
 
 cd /home
 cp -r nvidia/ /xavier_ssd/
 sudo mv nvidia/ nvidia_bkup/
 sudo ln -s /xavier_ssd/nvidia
+
+# Make swapfile
+
+mkdir /xavier_ssd/swap_dir
+mkdir ~/src
+cd ~/src
+git clone https://github.com/JetsonHacksNano/installSwapfile.git
+cd installSwapfile/
+./installSwapfile.sh -d /xavier_ssd/swap_dir -s 10
+sudo sed -i -e "/^\/xavier_ssd\/swap_dir/s/defaults/defaults,pri=10/" /etc/fstab
 
 # Compile and install OpenCV 3.4.6
 
@@ -70,7 +79,6 @@ echo -e "\e[33m#####################################"
 
 sudo apt purge libopencv*
 sudo apt autoremove
-mkdir ~/src
 cd ~/src
 git clone https://github.com/yuusuke0126/buildOpenCVXavier.git
 cd buildOpenCVXavier/
