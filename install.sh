@@ -115,7 +115,7 @@ make -j7
 sudo make install
 
 cd ~/src
-git clone https://github.com/RainerKuemmerle/g2o.git
+git clone https://github.com/SeaosRobotics/g2o.git
 cd g2o/
 git checkout master
 sudo apt install libeigen3-dev
