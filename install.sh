@@ -178,7 +178,7 @@ sudo python setup.py install
 cd ~/src
 git clone https://github.com/SeaosRobotics/monitoring.git
 cd monitoring
-git checkout v0.0.5
+git checkout v0.0.6
 python2.7 setup.py --user nvidia
 sudo systemctl start monitor.service
 
@@ -250,6 +250,7 @@ cd ../pipeline_planner; git checkout develop;
 cd ../range_sensor_layer; git checkout develop;
 cd ../roboline; git checkout develop;
 cd ../ros_ultrasonic_msgs; git checkout develop;
+cd ../rtabmap_ros; git checkout f8d5c66;
 cd ../teb_local_planner; git checkout melodic-devel;
 cd ../vision_opencv; git checkout melodic;
 cd ../zed-ros-wrapper; git checkout develop;
