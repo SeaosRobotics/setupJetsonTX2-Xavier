@@ -245,7 +245,7 @@ cd ../logiler_bringup; git checkout develop;
 cd ../logiler_description; git checkout release/0.1.0.1;
 cd ../logiler_navigation; git checkout develop;
 cd ../navigation; git checkout melodic-devel;
-cd ../obstacle_msgs; git checkout release/0.1.0.0;
+cd ../obstacle_msgs; git checkout develop;
 cd ../pipeline_planner; git checkout develop;
 cd ../range_sensor_layer; git checkout develop;
 cd ../roboline; git checkout develop;
