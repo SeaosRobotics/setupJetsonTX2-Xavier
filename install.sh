@@ -178,7 +178,7 @@ sudo python setup.py install
 cd ~/src
 git clone https://github.com/SeaosRobotics/monitoring.git
 cd monitoring
-git checkout v0.0.6
+git checkout v0.0.7
 python2.7 setup.py --user nvidia
 sudo systemctl start monitor.service
 
@@ -311,29 +311,30 @@ sudo sed -i -e "/^ExecStart=\//a ExecStartPost=\/bin\/chmod\ 666\ \/var\/run\/sd
 sudo systemctl daemon-reload
 sudo systemctl restart bluetooth.service
 
-# rmc and pm2 installation
+# python_rmc installation
+sudo apt install python3-pip
+python3 -m pip install --upgrade pip
+python3 -m pip install pycuda
 cd ~/src
-git clone https://github.com/SeaosRobotics/logiler_utils.git
-cd logiler_utils
-git checkout feature/installer
-cd scripts/include
-sed -i -e "s/  exit/#  exit/" nodejs.sh
-sed -i -e "s/\$HOME/\/xavier_ssd\/nvidia/" nodejs.sh
-source nodejs.sh
+git clone https://github.com/SeaosRobotics/rmc-sdk.git
+cd rmc-sdk/rmc-core/
+python3 -m pip install -r requirements.txt
+INSTALL_EGG=True python3 setup.py bdist_egg --exclude-source-files
 
-cd ~
-sed -i -e "s/\$HOME/\/xavier_ssd\/nvidia/" .bashrc
+mkdir -p ~/.rmc-sdk/keycart/res/keycart
+cp ~/src/setupJetsonTX2-Xavier/rtabmap.yaml ~/.rmc-sdk/keycart/res/keycart/
+cd ~/src
+git clone https://github.com/SeaosRobotics/rmc-keycart.git
+cd rmc-keycart/
+python3 -m pip install -r requirements.txt
+INSTALL_EGG=True SERVICE=TRUE USER=$USER ROBOTID=$HOSTNAME PORT=3000 RESOURCES=/home/$USER/.rmc-sdk/keycart/res/keycart python3 setup.py bdist_egg --exclude-source-files
 
-cd ~/ros
-git clone https://github.com/SeaosRobotics/rmc.git
-cd rmc
-git checkout develop
-npm install
-cp rmc.conf.sample.yaml rmc.conf.yaml
-cp rmc.path.conf.sample.yaml rmc.path.conf.yaml
-pm2 start dist
-pm2 startup
+sudo systemctl start rmc_keycart.service
+
 echo -e "\e[33m###############################"
-echo -e "\e[33m# Please do above command,    #"
-echo -e "\e[33m# Then do 'pm2 save'          #"
+echo -e "\e[33m# rmc installation finished!  #"
 echo -e "\e[33m###############################"
+
+echo -e "\e[33m###########################################"
+echo -e "\e[33m# All installation finished successfully  #"
+echo -e "\e[33m###########################################"
