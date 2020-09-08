@@ -200,6 +200,7 @@ source /opt/ros/melodic/setup.bash
 cd ~/src
 git clone https://github.com/SeaosRobotics/setupJetsonTX2-Xavier.git
 cd setupJetsonTX2-Xavier
+git checkout feature/python_rmc  # this line is just temporary, after merge to master will be removed
 cp .bash_ros ~/
 echo "source ~/.bash_ros" >> ~/.bashrc
 
