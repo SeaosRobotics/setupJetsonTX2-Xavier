@@ -304,10 +304,9 @@ sudo make install
 if [ -e "/lib/systemd/system/bluetooth.service.d/nv-bluetooth-service.conf" ]; then
     sudo sed -i -e "/^ExecStart=\//c\ExecStart=\/usr\/lib\/bluetooth\/bluetoothd\ --compat" /lib/systemd/system/bluetooth.service.d/nv-bluetooth-service.conf
     sudo sed -i -e "/^ExecStart=\//a ExecStartPost=\/bin\/chmod\ 666\ \/var\/run\/sdp" /lib/systemd/system/bluetooth.service.d/nv-bluetooth-service.conf
-else
-    sudo sed -i -e "/^ExecStart=\//c\ExecStart=\/usr\/lib\/bluetooth\/bluetoothd\ --compat" /lib/systemd/system/bluetooth.service
-    sudo sed -i -e "/^ExecStart=\//a ExecStartPost=\/bin\/chmod\ 666\ \/var\/run\/sdp" /lib/systemd/system/bluetooth.service
 fi
+sudo sed -i -e "/^ExecStart=\//c\ExecStart=\/usr\/lib\/bluetooth\/bluetoothd\ --compat" /lib/systemd/system/bluetooth.service
+sudo sed -i -e "/^ExecStart=\//a ExecStartPost=\/bin\/chmod\ 666\ \/var\/run\/sdp" /lib/systemd/system/bluetooth.service
 
 sudo systemctl daemon-reload
 sudo systemctl restart bluetooth.service
