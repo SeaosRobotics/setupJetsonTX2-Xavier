@@ -243,7 +243,7 @@ cd ../depthimage_to_laserscan; git checkout melodic-devel;
 cd ../image_transport_plugins; git checkout indigo-devel;
 cd ../key_cart; git checkout develop;
 cd ../logiler_bringup; git checkout develop;
-cd ../logiler_description; git checkout release/0.1.0.1;
+cd ../logiler_description; git checkout develop;
 cd ../logiler_navigation; git checkout develop;
 cd ../navigation; git checkout melodic-devel;
 cd ../obstacle_msgs; git checkout develop;
