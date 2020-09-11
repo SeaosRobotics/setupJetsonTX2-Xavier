@@ -149,6 +149,7 @@ cd ~/src
 git clone https://github.com/SeaosRobotics/rtabmap.git
 cd rtabmap/
 git checkout develop
+git checkout aaad58f3	# TODO confirm before install
 cd build/
 cmake ..
 make -j7
