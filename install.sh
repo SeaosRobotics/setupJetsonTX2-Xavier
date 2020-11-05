@@ -168,6 +168,7 @@ git clone https://github.com/SeaosRobotics/logger.git
 cd logger/
 git checkout v0.0.4
 python2.7 setup.py bdist_egg --exclude-source-files
+python3 setup.py bdist_egg --exclude-source-files
 
 cd ~/src
 git clone https://github.com/SeaosRobotics/zed-python-api.git
@@ -212,11 +213,14 @@ cd ~/ros/catkin_ws/
 catkin_make
 source ~/.bashrc
 
+# Update and upgrade the OS
+sudo apt update
+sudo apt -y upgrade
+
 # Logiler pkgs installation
 ## TODO git config not to input usrname and pswd for each times
 cd ~/ros/catkin_ws/src
 git clone https://github.com/SeaosRobotics/apriltag_ros.git
-git clone https://github.com/SeaosRobotics/cast_milestones.git
 git clone https://github.com/rst-tu-dortmund/costmap_converter.git
 git clone https://github.com/ros-perception/depthimage_to_laserscan.git
 git clone https://github.com/ros-perception/image_transport_plugins.git
@@ -235,12 +239,12 @@ git clone https://github.com/SeaosRobotics/rtabmap_ros.git
 git clone https://github.com/SeaosRobotics/teb_local_planner.git
 git clone https://github.com/ros-perception/vision_opencv.git
 git clone https://github.com/SeaosRobotics/zed-ros-wrapper.git
+git clone https://github.com/SeaosRobotics/ros_orchestration_pkg.git
 
 git clone https://github.com/SeaosRobotics/obstacle_monitor.git
 git clone https://github.com/SeaosRobotics/pin_stop_points.git
 
-cd cast_milestones; git checkout feature/service;
-cd ../depthimage_to_laserscan; git checkout melodic-devel;
+cd depthimage_to_laserscan; git checkout melodic-devel;
 cd ../image_transport_plugins; git checkout indigo-devel;
 cd ../key_cart; git checkout develop;
 cd ../logiler_bringup; git checkout develop;
@@ -248,7 +252,7 @@ cd ../logiler_description; git checkout develop;
 cd ../logiler_navigation; git checkout develop;
 cd ../navigation; git checkout melodic-devel;
 cd ../obstacle_msgs; git checkout develop;
-cd ../pipeline_planner; git checkout develop;
+cd ../pipeline_planner; git checkout develop-orchestration;
 cd ../range_sensor_layer; git checkout develop;
 cd ../roboline; git checkout develop;
 cd ../ros_ultrasonic_msgs; git checkout develop;
@@ -256,7 +260,7 @@ cd ../rtabmap_ros; git checkout f8d5c66;
 cd ../teb_local_planner; git checkout melodic-devel;
 cd ../vision_opencv; git checkout melodic;
 cd ../zed-ros-wrapper; git checkout develop;
-
+cd ../ros_orchestration_pkg; git checkout feature/overtaking_script;
 cd ../obstacle_monitor; git checkout develop;
 
 cd ~/ros/catkin_ws
