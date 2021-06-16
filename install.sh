@@ -149,6 +149,7 @@ cd ~/src
 git clone https://github.com/SeaosRobotics/rtabmap.git
 cd rtabmap/
 git checkout develop
+git checkout aaad58f3	# TODO confirm before install
 cd build/
 cmake ..
 make -j7
@@ -167,6 +168,7 @@ git clone https://github.com/SeaosRobotics/logger.git
 cd logger/
 git checkout v0.0.4
 python2.7 setup.py bdist_egg --exclude-source-files
+python3 setup.py bdist_egg --exclude-source-files
 
 cd ~/src
 git clone https://github.com/SeaosRobotics/zed-python-api.git
@@ -178,7 +180,7 @@ sudo python setup.py install
 cd ~/src
 git clone https://github.com/SeaosRobotics/monitoring.git
 cd monitoring
-git checkout v0.0.6
+git checkout v0.0.7
 python2.7 setup.py --user nvidia
 sudo systemctl start monitor.service
 
@@ -200,6 +202,7 @@ source /opt/ros/melodic/setup.bash
 cd ~/src
 git clone https://github.com/SeaosRobotics/setupJetsonTX2-Xavier.git
 cd setupJetsonTX2-Xavier
+git checkout feature/python_rmc  # this line is just temporary, after merge to master will be removed
 cp .bash_ros ~/
 echo "source ~/.bash_ros" >> ~/.bashrc
 
@@ -210,11 +213,14 @@ cd ~/ros/catkin_ws/
 catkin_make
 source ~/.bashrc
 
+# Update and upgrade the OS
+sudo apt update
+sudo apt -y upgrade
+
 # Logiler pkgs installation
 ## TODO git config not to input usrname and pswd for each times
 cd ~/ros/catkin_ws/src
 git clone https://github.com/SeaosRobotics/apriltag_ros.git
-git clone https://github.com/SeaosRobotics/cast_milestones.git
 git clone https://github.com/rst-tu-dortmund/costmap_converter.git
 git clone https://github.com/ros-perception/depthimage_to_laserscan.git
 git clone https://github.com/ros-perception/image_transport_plugins.git
@@ -233,20 +239,20 @@ git clone https://github.com/SeaosRobotics/rtabmap_ros.git
 git clone https://github.com/SeaosRobotics/teb_local_planner.git
 git clone https://github.com/ros-perception/vision_opencv.git
 git clone https://github.com/SeaosRobotics/zed-ros-wrapper.git
+git clone https://github.com/SeaosRobotics/ros_orchestration_pkg.git
 
 git clone https://github.com/SeaosRobotics/obstacle_monitor.git
 git clone https://github.com/SeaosRobotics/pin_stop_points.git
 
-cd cast_milestones; git checkout feature/service;
-cd ../depthimage_to_laserscan; git checkout melodic-devel;
+cd depthimage_to_laserscan; git checkout melodic-devel;
 cd ../image_transport_plugins; git checkout indigo-devel;
 cd ../key_cart; git checkout develop;
 cd ../logiler_bringup; git checkout develop;
-cd ../logiler_description; git checkout release/0.1.0.1;
+cd ../logiler_description; git checkout develop;
 cd ../logiler_navigation; git checkout develop;
 cd ../navigation; git checkout melodic-devel;
 cd ../obstacle_msgs; git checkout develop;
-cd ../pipeline_planner; git checkout develop;
+cd ../pipeline_planner; git checkout develop-orchestration;
 cd ../range_sensor_layer; git checkout develop;
 cd ../roboline; git checkout develop;
 cd ../ros_ultrasonic_msgs; git checkout develop;
@@ -254,7 +260,7 @@ cd ../rtabmap_ros; git checkout f8d5c66;
 cd ../teb_local_planner; git checkout melodic-devel;
 cd ../vision_opencv; git checkout melodic;
 cd ../zed-ros-wrapper; git checkout develop;
-
+cd ../ros_orchestration_pkg; git checkout feature/overtaking_script;
 cd ../obstacle_monitor; git checkout develop;
 
 cd ~/ros/catkin_ws
@@ -311,29 +317,30 @@ sudo sed -i -e "/^ExecStart=\//a ExecStartPost=\/bin\/chmod\ 666\ \/var\/run\/sd
 sudo systemctl daemon-reload
 sudo systemctl restart bluetooth.service
 
-# rmc and pm2 installation
+# python_rmc installation
+sudo apt install python3-pip
+python3 -m pip install --upgrade pip
+python3 -m pip install pycuda
 cd ~/src
-git clone https://github.com/SeaosRobotics/logiler_utils.git
-cd logiler_utils
-git checkout feature/installer
-cd scripts/include
-sed -i -e "s/  exit/#  exit/" nodejs.sh
-sed -i -e "s/\$HOME/\/xavier_ssd\/nvidia/" nodejs.sh
-source nodejs.sh
+git clone https://github.com/SeaosRobotics/rmc-sdk.git
+cd rmc-sdk/rmc-core/
+python3 -m pip install -r requirements.txt
+INSTALL_EGG=True python3 setup.py bdist_egg --exclude-source-files
 
-cd ~
-sed -i -e "s/\$HOME/\/xavier_ssd\/nvidia/" .bashrc
+mkdir -p ~/.rmc-sdk/keycart/res/keycart
+cp ~/src/setupJetsonTX2-Xavier/rtabmap.yaml ~/.rmc-sdk/keycart/res/keycart/
+cd ~/src
+git clone https://github.com/SeaosRobotics/rmc-keycart.git
+cd rmc-keycart/
+python3 -m pip install -r requirements.txt
+INSTALL_EGG=True SERVICE=TRUE USER=$USER ROBOTID=$HOSTNAME PORT=3000 RESOURCES=/home/$USER/.rmc-sdk/keycart/res/keycart python3 setup.py bdist_egg --exclude-source-files
 
-cd ~/ros
-git clone https://github.com/SeaosRobotics/rmc.git
-cd rmc
-git checkout develop
-npm install
-cp rmc.conf.sample.yaml rmc.conf.yaml
-cp rmc.path.conf.sample.yaml rmc.path.conf.yaml
-pm2 start dist
-pm2 startup
+sudo systemctl start rmc_keycart.service
+
 echo -e "\e[33m###############################"
-echo -e "\e[33m# Please do above command,    #"
-echo -e "\e[33m# Then do 'pm2 save'          #"
+echo -e "\e[33m# rmc installation finished!  #"
 echo -e "\e[33m###############################"
+
+echo -e "\e[33m###########################################"
+echo -e "\e[33m# All installation finished successfully  #"
+echo -e "\e[33m###########################################"
